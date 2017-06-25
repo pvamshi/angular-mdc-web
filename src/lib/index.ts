@@ -11,6 +11,7 @@ import { RadioModule } from './radio';
 import { RippleModule } from './ripple';
 import { SnackbarModule } from './snackbar';
 import { SwitchModule } from './switch';
+import { TabsModule } from './tabs';
 import { TextfieldModule } from './textfield';
 import { ToolbarModule } from './toolbar';
 import { TypographyModule } from './typography';
@@ -42,6 +43,7 @@ const MATERIAL_MODULES = [
 	RippleModule,
 	SnackbarModule,
 	SwitchModule,
+	TabsModule,
 	TextfieldModule,
 	ToolbarModule,
 	TypographyModule,

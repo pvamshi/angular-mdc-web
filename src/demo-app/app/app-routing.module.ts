@@ -9,6 +9,7 @@ import { FabDemoComponent } from './components/fab-demo/fab-demo.component';
 import { SwitchDemoComponent } from './components/switch-demo/switch-demo.component';
 import { SnackbarDemoComponent } from './components/snackbar-demo/snackbar-demo.component';
 import { MenuDemoComponent } from './components/menu-demo/menu-demo.component';
+import { TabsDemoComponent } from './components/tabs-demo/tabs-demo.component';
 import { TextfieldDemoComponent } from './components/textfield-demo/textfield-demo.component';
 import { ToolbarDemoComponent } from './components/toolbar-demo/toolbar-demo.component';
 import { LinearProgressDemoComponent } from './components/linear-progress-demo/linear-progress-demo.component';
@@ -22,6 +23,7 @@ export const appRoutes: Routes = [
   { path: 'switch-demo', component: SwitchDemoComponent },
   { path: 'snackbar-demo', component: SnackbarDemoComponent },
   { path: 'menu-demo', component: MenuDemoComponent },
+  { path: 'tabs-demo', component: TabsDemoComponent},
   { path: 'textfield-demo', component: TextfieldDemoComponent },
   { path: 'toolbar-demo', component: ToolbarDemoComponent },
   { path: 'linear-progress-demo', component: LinearProgressDemoComponent },

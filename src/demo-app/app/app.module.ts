@@ -15,6 +15,7 @@ import { NavbarComponent } from './components/navigation/navbar.component';
 import { RadioDemoComponent } from './components/radio-demo/radio-demo.component';
 import { SnackbarDemoComponent } from './components/snackbar-demo/snackbar-demo.component';
 import { SwitchDemoComponent } from './components/switch-demo/switch-demo.component';
+import { TabsDemoComponent } from './components/tabs-demo/tabs-demo.component';
 import { TextfieldDemoComponent } from './components/textfield-demo/textfield-demo.component';
 import { ToolbarDemoComponent } from './components/toolbar-demo/toolbar-demo.component';
 import { TypographyDemoComponent } from './components/typography-demo/typography-demo.component';
@@ -48,6 +49,7 @@ import { AppRoutingModule } from './app-routing.module';
     RadioDemoComponent,
     SnackbarDemoComponent,
     SwitchDemoComponent,
+    TabsDemoComponent,
     TextfieldDemoComponent,
     ToolbarDemoComponent,
     TypographyDemoComponent,
