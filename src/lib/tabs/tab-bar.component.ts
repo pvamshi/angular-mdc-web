@@ -3,16 +3,15 @@ import {
 	HostBinding,
 	ElementRef,
 	Renderer2,
+	AfterViewInit,
+	QueryList,
+	ContentChildren,
 } from '@angular/core';
 import { MDCTabBarAdapter } from './tab-bar-adapter';
+import { TabDirective } from "tabs/tab.directive";
 
 type UnlistenerMap = WeakMap<EventListener, Function>;
 const MDC_TABS_STYLES = require('@material/tabs/mdc-tabs.scss');
-
-interface Tab {
-	name: string;
-	href: string;
-}
 
 @Component({
 	selector: 'mdc-tab-bar',
@@ -21,17 +20,12 @@ interface Tab {
 })
 export class TabBarComponent {
 
+	@ContentChildren(TabDirective) _tabs: QueryList<TabDirective>;
+
 	@HostBinding('class.mdc-tab-bar') className: string = 'mdc-tab-bar';
 
 	constructor(private _renderer: Renderer2, private _root: ElementRef) { }
 
-	private _tabs: Tab[] = [
-		{ name: 'tab 1', href: '#' },
-		{ name: 'tab 2', href: '#' },
-		{ name: 'tab 3', href: '#' },
-		{ name: 'tab 4', href: '#' },
-	];
-	private _activeTabIndex: number = 0;
 	private _unlisteners: Map<string, UnlistenerMap> = new Map<string, UnlistenerMap>();
 
 	private _mdcTabBarAdaptor: MDCTabBarAdapter = {
@@ -53,21 +47,44 @@ export class TabBarComponent {
 			this.unlisten_('resize', handler);
 		},
 		getOffsetWidth: () => {
-			const {_root: root} = this;
+			const { _root: root } = this;
 			return root.nativeElement.offsetWidth || 0;
 		},
 		getNumberOfTabs: () => {
-			const { _tabs: tabs} = this;
+			const { _tabs: tabs } = this;
 			return tabs.length;
 		},
 		isTabActiveAtIndex: (index: number) => {
-			const { _activeTabIndex: activeTabIndex} = this;
-			return activeTabIndex === index;
+			const _activeTabIndex = this.getActiveIndex_();
+			return _activeTabIndex === index;
 		},
 		setTabActiveAtIndex: (index: number, isActive: boolean = true) => {
-      //TOOD:
+			/** TODO: Handle isActive is false */
+			const { _tabs: tabs, getActiveIndex_: getActiveIndex } = this;
+			const _activeTabIndex = getActiveIndex();
+			if (_activeTabIndex === index) {
+				return;
+			}
+			tabs[index].active = true;
 		}
 	};
+	// bindOnMDCTabSelectedEvent: () => void;
+	// unbindOnMDCTabSelectedEvent: () => void;
+	// setStyleForIndicator: ( propertyName: string, value: string ) => void;
+	// getOffsetWidthForIndicator: () => number;
+	// notifyChange: ( evtData: {activeTabIndex: number} ) => void;
+
+	private getActiveIndex_(): number {
+		const { _tabs: tabs } = this;
+		let activeTabIndex = -1;
+		for (let index = 0; index < tabs.length; index++) {
+			if (tabs[index].active) {
+				activeTabIndex = index;
+				break;
+			}
+		}
+		return activeTabIndex;
+	}
 
 	private listen_(type: string, listener: EventListener, ref: any) {
 		if (!this._unlisteners.has(type)) {
@@ -88,16 +105,4 @@ export class TabBarComponent {
 		unlisteners.get(listener)();
 		unlisteners.delete(listener);
 	}
-	// addClass: (className: string ) => boolean;
-	// removeClass: (className: string ) => void;
-	// bindOnMDCTabSelectedEvent: () => void;
-	// unbindOnMDCTabSelectedEvent: () => void;
-	// registerResizeHandler: (handler: EventListener ) => void;
-	// deregisterResizeHandler: ( handler: EventListener ) => void;
-	// getOffsetWidth: () => number;
-	// setStyleForIndicator: ( propertyName: string, value: string ) => void;
-	// getOffsetWidthForIndicator: () => number;
-	// notifyChange: ( evtData: {activeTabIndex: number} ) => void;
-	// getNumberOfTabs: () =>  number ;
-	// isTabActiveAtIndex: ( index: number ) =>  boolean ;
 }
